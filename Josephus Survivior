@@ -2,18 +2,22 @@
 #include <bits/stdc++.h>
 int josephusSurvivor(int n, int k) {
   std::vector<int> tab;
+  int result;
   for (int i=1;i<=n;i++){
     tab.push_back(i);
   }
-  while (tab.size()>=k){
+  while (tab.size()>1){
+   if (tab.size()>=k){ 
     for (size_t i=0;i<tab.size();i++){
       if (i%k==0){
         tab.erase(tab.begin()+i);
+       }
       }
     }
+    if (tab.size()<k){
+      k-=tab.size();
+    }
   }
-
-  
-  
-  return ;
+  result=tab[0];
+  return result;
 }

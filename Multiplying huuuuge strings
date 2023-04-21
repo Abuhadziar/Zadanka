@@ -1,0 +1,62 @@
+#include <iostream>
+#include <string>
+#include <bits/stdc++.h>
+using namespace std;
+
+string multiply(string a, string b) {
+  unsigned long long ia, ib, mul;
+  string result;
+  try {
+    ia=stoull(a, nullptr, 10);
+    ib=stoull(b, nullptr, 10);
+    } catch (const invalid_argument& e){
+    cerr<<e.what();
+    return "";
+  } catch (const out_of_range& e){
+    cerr<<e.what();
+    return "";
+  }
+    mul=ia*ib;
+    result=to_string(mul);
+  return result;
+}
+
+//Jeśli liczby są jednak za duże to użyj boosta
+
+#include <iostream>
+#include <string>
+#include <boost/multiprecision/cpp_int.hpp>
+using namespace std;
+using namespace boost::multiprecision;
+string multiply(string a, string b) {
+  cpp_int ia(a);
+  cpp_int ib(b);
+  cpp_int multi=ia*ib;
+  return multi.str();
+}
+
+//Jak nie można boosta to bardziej uniwersalna metoda:
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+string multiply(string a, string b) {
+    int n=a.size();
+    int m=b.size();
+    string res(n+m,'0');
+    for (int i=n-1; i>=0; i--) {
+        int temp=0;
+        for (int j=m-1; j>=0; j--) {
+            int sum = (a[i]-'0') * (b[j]-'0')+temp+(res[i+j+1]-'0');
+            res[i+j+1]=sum%10+'0';
+            temp=sum/10;
+        }
+        res[i]+=temp;
+    }
+    auto pos=res.find_first_not_of('0');
+    if (pos!=string::npos) {
+        return res.substr(pos);
+    }
+    return "0";
+}

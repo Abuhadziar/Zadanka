@@ -35,7 +35,7 @@ string multiply(string a, string b) {
   return multi.str();
 }
 
-//Jak nie można boosta to bardziej uniwersalna metoda:
+//Jak nie można boosta to bardziej uniwersalna metoda (mnożenie w kolumnach):
 #include <iostream>
 #include <string>
 #include <algorithm>
